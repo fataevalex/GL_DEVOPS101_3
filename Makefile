@@ -3,17 +3,20 @@ IMAGE_TAG := quay.io/myorg/app:latest
 
 .PHONY: linux arm macos windows image clean
 
-linux:
-	GOOS=linux   GOARCH=amd64 go build -o bin/app_linux_amd64   ./...
+linux_x86:
+	GOOS=linux   GOARCH=amd64 go build -o  app/myapp main.go
 
-arm:
-	GOOS=linux   GOARCH=arm64 go build -o bin/app_linux_arm64   ./...
+linux_arm:
+	GOOS=linux   GOARCH=arm64 go build -o  app/myapp main.go
 
-macos:
-	GOOS=darwin  GOARCH=amd64 go build -o bin/app_darwin_amd64  ./...
+macos_x86:
+	GOOS=darwin  GOARCH=amd64 go build -o  app/myapp main.go
 
-windows:
-	GOOS=windows GOARCH=amd64 go build -o bin/app_windows_amd64.exe ./...
+macos_arm:
+	GOOS=darwin  GOARCH=arm64 go build -o  app/myapp main.go
+
+win_x86:
+	GOOS=windows GOARCH=amd64 go build -o  app/myapp main.go
 
 # build image
 image:

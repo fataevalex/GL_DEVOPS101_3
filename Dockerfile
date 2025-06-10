@@ -18,4 +18,4 @@ RUN CGO_ENABLED=0 \
 # Створюємо кінцевий образ тільки з тестовим бінарником
 FROM scratch AS tester
 COPY --from=builder /app/test_binary /test_binary
-ENTRYPOINT ["/test_binary"]
+ENTRYPOINT ["/app"]
