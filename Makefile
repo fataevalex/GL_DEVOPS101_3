@@ -1,5 +1,9 @@
 # registry prefix
 IMAGE_TAG := quay.io/myorg/app:latest
+HOSTOS   := $(shell uname -s | tr '[:upper:]' '[:lower:]' | sed -e 's/darwin/macos/')
+HOSTARCH := $(shell uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/')
+
+
 
 .PHONY: linux_x86 linux_arm macos_x86 macos_arm win_x86 image clean
 
@@ -20,9 +24,9 @@ win_x86:
 
 # build image
 image:
-	@echo "Building image for $$(go env GOHOSTOS)/$$(go env GOARCH)…"
+	@echo "Building image for $(HOSTOS)/$(HOSTARCH)…"
 	docker buildx build \
-		--platform=$$(go env GOHOSTOS)/$$(go env GOARCH) \
+		--platform=$(HOSTOS)/$(HOSTARCH) \
 		--load \
 		-t $(IMAGE_TAG) \
 		.
