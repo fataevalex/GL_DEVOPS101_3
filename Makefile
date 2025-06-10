@@ -25,6 +25,7 @@ win_x86:
 # build image
 image:
 	@echo "Building image for $(HOSTOS)/$(HOSTARCH)…"
+	@mkdir -p tmp
 	docker buildx build \
 		--platform=$(HOSTOS)/$(HOSTARCH) \
 		--load \
