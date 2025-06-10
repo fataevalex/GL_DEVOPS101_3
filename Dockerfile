@@ -1,8 +1,6 @@
 FROM quay.io/projectquay/golang:1.20 AS builder
 
-WORKDIR /app
-COPY go.mod go.sum ./
-RUN go mod download
+WORKDIR ./...
 COPY . .
 
 # задаємо цільові платформи як build-args
@@ -13,9 +11,9 @@ ARG TARGETARCH=amd64
 RUN CGO_ENABLED=0 \
     GOOS=${TARGETOS} \
     GOARCH=${TARGETARCH} \
-    go test -c -o test_binary ./...
-
+    go build -o  myapp main.go
+RUN pwd && ls
 # Створюємо кінцевий образ тільки з тестовим бінарником
 FROM scratch AS tester
-COPY --from=builder /app/test_binary /test_binary
-ENTRYPOINT ["/app"]
+COPY --from=builder /go/.../myapp /myapp
+ENTRYPOINT ["/myapp"]

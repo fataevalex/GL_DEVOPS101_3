@@ -1,7 +1,7 @@
 # registry prefix
 IMAGE_TAG := quay.io/myorg/app:latest
 
-.PHONY: linux arm macos windows image clean
+.PHONY: linux_x86 linux_arm macos_x86 macos_arm win_x86 image clean
 
 linux_x86:
 	GOOS=linux   GOARCH=amd64 go build -o  app/myapp main.go
